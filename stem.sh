@@ -134,6 +134,16 @@ echo "[¡!] TODO microcodes"
 
 EFI=$1
 
+echo "downloading better default grub config"
+echo " --> rm /etc/default/grub"
+rm /etc/default/grub
+
+y_n_promt "Do you want 0s grub display?" "" && \
+echo " --> curl -o /etc/default/grub https://raw.githubusercontent.com/devensiv/tree-inst/main/grub_0delay" && \
+curl -o /etc/default/grub https://raw.githubusercontent.com/devensiv/tree-inst/main/grub_0delay || \
+echo " --> curl -o /etc/default/grub https://raw.githubusercontent.com/devensiv/tree-inst/main/grub" && \
+curl -o /etc/default/grub https://raw.githubusercontent.com/devensiv/tree-inst/main/grub
+
 if [ $EFI == true ]; then
 	echo "installing grub for uefi boot"
 
@@ -153,8 +163,11 @@ else
 	
 	echo " --> grub-install --target=TARGET $DEVICE"
 	grub-install --target=TARGET $DEVICE
-
 fi
+
+echo "make grub config"
+echo " --> grub-mkcongig -o /boot/grub/grub.cfg"
+grub-mkcongig -o /boot/grub/grub.cfg
 
 echo "[¡!] TODO user + group setup"
 echo "[¡!] TODO user + group setup"
