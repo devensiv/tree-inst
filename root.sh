@@ -1,39 +1,39 @@
 #!/bin/bash
 
 # Define functions
-function choose_from_menu() {
-    local prompt="$1" outvar="$2"
-    shift
-    shift
-    local options=("$@") cur=0 count=${#options[@]} index=0
-    local esc=$(echo -en "\e") # cache ESC as test doesn't allow esc codes
-    printf "$prompt\n"
-    while true
-    do
-        # list all options (option list is zero-based)
-        index=0 
-        for o in "${options[@]}"
-        do
-            if [ "$index" == "$cur" ]
-            then echo -e " >\e[7m$o\e[0m" # mark & highlight the current option
-            else echo "  $o"
-            fi
-            index=$(( $index + 1 ))
-        done
-        read -s -n3 key # wait for user to key in arrows or ENTER
-        if [[ $key == $esc[A ]] # up arrow
-        then cur=$(( $cur - 1 ))
-            [ "$cur" -lt 0 ] && cur=0
-        elif [[ $key == $esc[B ]] # down arrow
-        then cur=$(( $cur + 1 ))
-            [ "$cur" -ge $count ] && cur=$(( $count - 1 ))
-        elif [[ $key == "" ]] # nothing, i.e the read delimiter - ENTER
-        then break
-        fi
-        echo -en "\e[${count}A" # go up to the beginning to re-render
-    done
-    # export the selection to the requested output variable
-    printf -v $outvar "${options[$cur]}"
+function select_from_menu() {
+	local prompt="$1" outvar="$2"
+	shift
+	shift
+	local options=("$@") cur=0 count=${#options[@]} index=0
+	local esc=$(echo -en "\e") # cache ESC as test doesn't allow esc codes
+	printf "$prompt\n"
+	while true
+	do
+		# list all options (option list is zero-based)
+		index=0
+		for o in "${options[@]}"
+		do
+			if [ "$index" == "$cur" ]
+			then echo -e " >\e[7m$o\e[0m" # mark & highlight the current option
+			else echo "  $o"
+			fi
+			index=$(( $index + 1 ))
+		done
+		read -s -n3 key # wait for user to key in arrows or ENTER
+		if [[ $key == $esc[A ]] # up arrow
+		then cur=$(( $cur - 1 ))
+			[ "$cur" -lt 0 ] && cur=0
+		elif [[ $key == $esc[B ]] # down arrow
+		then cur=$(( $cur + 1 ))
+			[ "$cur" -ge $count ] && cur=$(( $count - 1 ))
+		elif [[ $key == "" ]] # nothing, i.e the read delimiter - ENTER
+		then break
+		fi
+		echo -en "\e[${count}A" # go up to the beginning to re-render
+	done
+	# export the selection to the requested output variable
+	printf -v $outvar "${options[$cur]}"
 }
 
 function select_from_menu_flags() {
@@ -48,7 +48,7 @@ function select_from_menu_flags() {
 	do
 		clear
 		OPTIONS="$OPTIONS $selected"
-		choose_from_menu "$prompt\nselected:$OPTIONS" selected "${options[@]}" "CLEAR SELECTION" "DONE"
+		select_from_menu "$prompt\nselected:$OPTIONS" selected "${options[@]}" "CLEAR SELECTION" "DONE"
 
 		if [[ "$selected" == "CLEAR SELECTION" ]]
 		then
@@ -57,11 +57,11 @@ function select_from_menu_flags() {
 		fi
 	done
 	printf -v $outvar "$OPTIONS"
-	
+
 }
 
 function y_n_promt() {
-	local promt=$1 cmd=$2
+		local promt=$1 cmd=$2
 	read -p "$promt [y/N]" -n 1 -r
 	echo    # (optional) move to a new line
 	if [[ $REPLY =~ ^[Yy]$ ]]
@@ -86,24 +86,21 @@ echo "Dont forget to swapon /dev/<swap_partition> if you configured one"
 echo "Type exit once your done partitioning and mounting"
 echo " --> bash"
 bash
-if [ ! $? == 1 ]; then
-	exit $1
-fi
 echo "Update pacman mirrors"
 echo " --> reflector"
 reflector
-$INITAL="base grub kernel-modules-hook" 
+INITAL="base grub kernel-modules-hook"
 kernels=(
 	"linux"
 	"linux-hardened"
 	"linux-zen"
 )
-choose_from_menu "Select kernel:" KERNEL "${kernels[@]}"
+select_from_menu "Select kernel:" KERNEL "${kernels[@]}"
 editors=(
 	"neovim"
 	"nano"
 )
-choose_from_menu_flags "editors" EDITORS "${editors[@]}"
+select_from_menu_flags "Select editors:" EDITORS "${editors[@]}"
 y_n_promt "Do you want to use NetworkManager instead of systemd-networkd?" "echo added 'networkmanager' to initial packages" && INITIAL="$INITIAL networkmanager" || NETWORKD=true
 
 ls /sys/firmware/efi/efivars 2> /dev/null > /dev/null && EFI=true && INITIAL="$INITIAL efibootmgr" || EFI=false
@@ -111,10 +108,10 @@ ls /sys/firmware/efi/efivars 2> /dev/null > /dev/null && EFI=true && INITIAL="$I
 y_n_promt "Do you want to install linux firmware (not needed in VM)" "echo added 'linux-firmware' to initial packages" && INITIAL="$INITIAL linux-firmware"
 
 echo "Installing essential packages"
-echo " --> pacstrap /mnt $INITIAL $KERNEL $EDITOR"
-pacstrap /mnt $INITIAL $KERNEL $EDITOR
+echo " --> pacstrap /mnt $INITIAL$KERNEL$EDITOR"
+pacstrap /mnt "$INITIAL$KERNEL$EDITOR"
 
 echo "Generate fstab file"
 echo " --> genfstab -U /mnt >> /mnt/etc/fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
-
+echo "Generate fstab file"
