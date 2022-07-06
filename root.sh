@@ -89,7 +89,7 @@ bash
 echo "Update pacman mirrors"
 echo " --> reflector"
 reflector
-INITAL="base grub kernel-modules-hook"
+INITIAL="base grub kernel-modules-hook"
 kernels=(
 	"linux"
 	"linux-hardened"
@@ -108,8 +108,8 @@ ls /sys/firmware/efi/efivars 2> /dev/null > /dev/null && EFI=true && INITIAL="$I
 y_n_promt "Do you want to install linux firmware (not needed in VM)" "echo added 'linux-firmware' to initial packages" && INITIAL="$INITIAL linux-firmware"
 
 echo "Installing essential packages"
-echo " --> pacstrap /mnt $INITIAL$KERNEL$EDITOR"
-pacstrap /mnt "$INITIAL$KERNEL$EDITOR"
+echo " --> pacstrap /mnt $INITIAL $KERNEL$EDITORS"
+pacstrap /mnt $INITIAL $KERNEL$EDITORS
 
 echo "Generate fstab file"
 echo " --> genfstab -U /mnt >> /mnt/etc/fstab"
