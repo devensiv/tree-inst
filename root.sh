@@ -136,3 +136,5 @@ echo "[¡!] TODO networkd/networkmanger"
 echo "[¡!] TODO networkd/networkmanger"
 echo "[¡!] TODO networkd/networkmanger"
 
+echo " --> reboot"
+reboot
