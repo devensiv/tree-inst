@@ -115,3 +115,24 @@ echo "Generate fstab file"
 echo " --> genfstab -U /mnt >> /mnt/etc/fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
 echo "Generate fstab file"
+
+echo "Download stem.sh and run it in chroot"
+echo " --> curl -o /mnt/stem.sh https://raw.githubusercontent.com/devensiv/tree-inst/main/stem.sh"
+curl -o /mnt/stem.sh https://raw.githubusercontent.com/devensiv/tree-inst/main/stem.sh
+echo " --> chmod +x /mnt/stem.sh"
+chmod +x /mnt/stem.sh
+
+echo " --> arch-chroot /mnt ./stem.sh"
+arch-chroot /mnt ./stem.sh $EFI
+
+echo "Delete stem.sh"
+echo " --> rm /mnt/stem.sh"
+rm /mnt/stem.sh
+
+echo "[¡!] TODO networkd/networkmanger"
+echo "[¡!] TODO networkd/networkmanger"
+echo "[¡!] TODO networkd/networkmanger"
+echo "[¡!] TODO networkd/networkmanger"
+echo "[¡!] TODO networkd/networkmanger"
+echo "[¡!] TODO networkd/networkmanger"
+
