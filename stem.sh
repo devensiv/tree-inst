@@ -161,8 +161,8 @@ else
 	fdisk -l
 	read -p "please enter the name of the device where grub should be installed (/dev/sda not /dev/sdaX): " DEVICE
 	
-	echo " --> grub-install --target=TARGET $DEVICE"
-	grub-install --target=TARGET $DEVICE
+	echo " --> grub-install --target=$TARGET $DEVICE"
+	grub-install --target=$TARGET $DEVICE
 fi
 
 echo "make grub config"
