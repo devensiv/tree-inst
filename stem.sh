@@ -166,8 +166,8 @@ else
 fi
 
 echo "make grub config"
-echo " --> grub-mkcongig -o /boot/grub/grub.cfg"
-grub-mkcongig -o /boot/grub/grub.cfg
+echo " --> grub-mkconfig -o /boot/grub/grub.cfg"
+grub-mkconfig -o /boot/grub/grub.cfg
 
 echo "[¡!] TODO user + group setup"
 echo "[¡!] TODO user + group setup"
