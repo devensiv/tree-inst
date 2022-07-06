@@ -106,7 +106,7 @@ echo "set locale"
 echo " --> echo \"LANG=$LOCALE\" > /etc/locale.conf"
 echo "LANG=$LOCALE" > /etc/locale.conf
 
-locales=(
+layouts=(
 	"de-latin1"
 	"us"
 )
@@ -156,5 +156,11 @@ else
 
 fi
 
+echo "[¡!] TODO user + group setup"
+echo "[¡!] TODO user + group setup"
+echo "[¡!] TODO user + group setup"
+echo "[¡!] TODO user + group setup"
+echo "[¡!] TODO user + group setup"
+echo "[¡!] TODO user + group setup"
 echo "[¡!] TODO user + group setup"
 
