@@ -166,9 +166,9 @@ else
 fi
 
 echo "make grub config"
-echo " --> grub-mkconfig -o /boot/grub/grub.cfg"
 echo " --> mkdir /boot/grub"
 mkdir /boot/grub
+echo " --> grub-mkconfig -o /boot/grub/grub.cfg"
 grub-mkconfig -o /boot/grub/grub.cfg
 
 echo "[¡!] TODO user + group setup"
