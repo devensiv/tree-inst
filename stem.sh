@@ -147,22 +147,28 @@ curl -o /etc/default/grub https://raw.githubusercontent.com/devensiv/tree-inst/m
 if [ $EFI == true ]; then
 	echo "installing grub for uefi boot"
 
-	targets=("x86_64-efi")
-	select_from_menu "Select target:" TARGET "${targets[@]}"
-	echo " --> grub-install --target=$TARGET --efi-directory=/boot --bootloader-id=GRUB"
-	grub-install --target=$TARGET --efi-directory=/boot --bootloader-id=GRUB
+	# only one option for now ... omit question
+	#targets=("x86_64-efi")
+	#select_from_menu "Select target:" TARGET "${targets[@]}"
+	#echo " --> grub-install --target=$TARGET --efi-directory=/boot --bootloader-id=GRUB"
+	#grub-install --target=$TARGET --efi-directory=/boot --bootloader-id=GRUB
+	echo " --> grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB"
+	grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 else
 	echo "installing grub for bios boot"
 
-	targets=("i386-pc")
-	select_from_menu "Select target:" TARGET "${targets[@]}"
 	echo "listing disks"
 	echo " --> fdisk -l"
 	fdisk -l
 	read -p "please enter the name of the device where grub should be installed (/dev/sda not /dev/sdaX): " DEVICE
 	
-	echo " --> grub-install --target=$TARGET $DEVICE"
-	grub-install --target=$TARGET $DEVICE
+	# only one option for now ... omit question
+	#targets=("i386-pc")
+	#select_from_menu "Select target:" TARGET "${targets[@]}"
+	#echo " --> grub-install --target=$TARGET $DEVICE"
+	#grub-install --target=$TARGET $DEVICE
+	echo " --> grub-install --target=i386-pc $DEVICE"
+	grub-install --target=i386-pc $DEVICE
 fi
 
 echo "make grub config"
