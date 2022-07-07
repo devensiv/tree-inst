@@ -125,13 +125,6 @@ echo "Add a root password"
 echo " --> passwd"
 passwd
 
-echo "[¡!] TODO microcodes"
-echo "[¡!] TODO microcodes"
-echo "[¡!] TODO microcodes"
-echo "[¡!] TODO microcodes"
-echo "[¡!] TODO microcodes"
-echo "[¡!] TODO microcodes"
-
 EFI=$1
 
 echo "downloading better default grub config"

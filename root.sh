@@ -105,18 +105,26 @@ kernels=(
 	"linux-zen"
 )
 select_from_menu "Select kernel:" KERNEL "${kernels[@]}"
+
 editors=(
 	"neovim"
 	"nano"
 )
-select_from_menu_flags "Select editors:" EDITORS "${editors[@]}"
+select_from_menu "Select editors:" EDITORS "${editors[@]}"
+
+codes=(
+	""
+	"amd-ucode"
+	"intel-ucode"
+)
+select_from_menu "Select microcode: (select empty entry for none)" MUCODE "${codes[@]}"
 y_n_promt "Do you want to use NetworkManager instead of systemd-networkd?" "echo added 'networkmanager' to initial packages" && INITIAL="$INITIAL networkmanager" && NETWORKD=false || NETWORKD=true
 
 y_n_promt "Do you want to install linux firmware (not needed in VM)" "echo added 'linux-firmware' to initial packages" && INITIAL="$INITIAL linux-firmware"
 
 echo "Installing essential packages"
-echo " --> pacstrap /mnt $INITIAL $KERNEL$EDITORS"
-pacstrap /mnt $INITIAL $KERNEL$EDITORS
+echo " --> pacstrap /mnt $INITIAL $KERNEL$EDITORS $MUCODE"
+pacstrap /mnt $INITIAL $KERNEL$EDITORS $MUCODE
 
 echo "Generate fstab file"
 echo " --> genfstab -U /mnt >> /mnt/etc/fstab"
