@@ -177,6 +177,34 @@ mkdir /boot/grub
 echo " --> grub-mkconfig -o /boot/grub/grub.cfg"
 grub-mkconfig -o /boot/grub/grub.cfg
 
+NETWORKD=$2
+
+
+if [ $NETWORKD == true ]; then
+	echo "Installing config for ethernet using systemd-networkd"
+	echo " --> echo ... > /etc/systemd/network/20-wired.network"
+	echo "[Match]
+Type=ether
+
+[Network]
+DHCP=yes" > /etc/systemd/network/20-wired.network
+	echo "Displaying written config"
+	echo " --> cat /etc/systemd/network/20-wired.network"
+	cat /etc/systemd/network/20-wired.network
+	
+	echo "Enable networkd"
+	echo " --> systemctl enable systemd-networkd"
+	systemctl enable systemd-networkd
+
+	echo "Enable resolved (DNS resolver)"
+	echo " --> systemctl enable systemd-resloved"
+	systemctl enable systemd-resolved
+else
+	echo "Enable NetworkManager"
+	echo " --> systemctl enable NetworkManager.service"
+	systemctl enable NetworkManager.service
+fi	
+
 echo "[¡!] TODO user + group setup"
 echo "[¡!] TODO user + group setup"
 echo "[¡!] TODO user + group setup"

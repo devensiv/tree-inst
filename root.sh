@@ -71,10 +71,20 @@ function y_n_promt() {
 	fi
 	return 1
 }
+INITIAL="base grub kernel-modules-hook"
 
 echo "Enable network time syncronization"
 echo " --> timedatectl set-ntp true"
 timedatectl set-ntp true
+
+echo "Checking boot type"
+echo " --> ls /sys/firmware/efi/efivars 2> /dev/null > /dev/null && EFI=true && INITIAL=\"$INITIAL efibootmgr\" || EFI=false"
+ls /sys/firmware/efi/efivars 2> /dev/null > /dev/null && EFI=true && INITIAL="$INITIAL efibootmgr" || EFI=false
+if [ EFI == true ]; then
+	echo "... UEFI detected"
+else
+	echo "... BIOS detected"
+fi
 
 echo "Listing connected devices: "
 echo " --> lsblk"
@@ -89,7 +99,6 @@ bash
 echo "Update pacman mirrors"
 echo " --> reflector"
 reflector
-INITIAL="base grub kernel-modules-hook"
 kernels=(
 	"linux"
 	"linux-hardened"
@@ -101,9 +110,7 @@ editors=(
 	"nano"
 )
 select_from_menu_flags "Select editors:" EDITORS "${editors[@]}"
-y_n_promt "Do you want to use NetworkManager instead of systemd-networkd?" "echo added 'networkmanager' to initial packages" && INITIAL="$INITIAL networkmanager" || NETWORKD=true
-
-ls /sys/firmware/efi/efivars 2> /dev/null > /dev/null && EFI=true && INITIAL="$INITIAL efibootmgr" || EFI=false
+y_n_promt "Do you want to use NetworkManager instead of systemd-networkd?" "echo added 'networkmanager' to initial packages" && INITIAL="$INITIAL networkmanager" && NETWORKD=false || NETWORKD=true
 
 y_n_promt "Do you want to install linux firmware (not needed in VM)" "echo added 'linux-firmware' to initial packages" && INITIAL="$INITIAL linux-firmware"
 
@@ -123,18 +130,11 @@ echo " --> chmod +x /mnt/stem.sh"
 chmod +x /mnt/stem.sh
 
 echo " --> arch-chroot /mnt ./stem.sh"
-arch-chroot /mnt ./stem.sh $EFI
+arch-chroot /mnt ./stem.sh $EFI $NETWORKD
 
 echo "Delete stem.sh"
 echo " --> rm /mnt/stem.sh"
 rm /mnt/stem.sh
-
-echo "[¡!] TODO networkd/networkmanger"
-echo "[¡!] TODO networkd/networkmanger"
-echo "[¡!] TODO networkd/networkmanger"
-echo "[¡!] TODO networkd/networkmanger"
-echo "[¡!] TODO networkd/networkmanger"
-echo "[¡!] TODO networkd/networkmanger"
 
 echo " --> reboot"
 reboot
