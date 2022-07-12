@@ -123,8 +123,8 @@ y_n_promt "Do you want to use NetworkManager instead of systemd-networkd?" "echo
 y_n_promt "Do you want to install linux firmware (not needed in VM)" "echo added 'linux-firmware' to initial packages" && INITIAL="$INITIAL linux-firmware"
 
 echo "Installing essential packages"
-echo " --> pacstrap /mnt $INITIAL $KERNEL$EDITORS $MUCODE"
-pacstrap /mnt $INITIAL $KERNEL$EDITORS $MUCODE
+echo " --> pacstrap /mnt $INITIAL $KERNEL $EDITORS $MUCODE"
+pacstrap /mnt $INITIAL $KERNEL $EDITORS $MUCODE
 
 echo "Generate fstab file"
 echo " --> genfstab -U /mnt >> /mnt/etc/fstab"
@@ -144,5 +144,4 @@ echo "Delete stem.sh"
 echo " --> rm /mnt/stem.sh"
 rm /mnt/stem.sh
 
-echo " --> reboot"
-reboot
+y_n_promt "Do you want to reboot now?" "echo ' --> reboot' && reboot"
