@@ -71,7 +71,7 @@ function y_n_promt() {
 	fi
 	return 1
 }
-INITIAL="base grub kernel-modules-hook"
+INITIAL="base grub kernel-modules-hook pacman-contrib"
 
 echo "Enable network time syncronization"
 echo " --> timedatectl set-ntp true"
