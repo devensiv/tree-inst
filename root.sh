@@ -86,6 +86,10 @@ else
 	echo "... BIOS detected"
 fi
 
+echo "Update keyring"
+echo "pacman -Sy archlinux-keyring"
+pacman -Sy archlinux-keyring
+
 echo "Listing connected devices: "
 echo " --> lsblk"
 lsblk
