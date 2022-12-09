@@ -153,4 +153,4 @@ echo "Delete stem.sh"
 echo " --> rm /mnt/stem.sh"
 rm /mnt/stem.sh
 
-y_n_promt "Do you want to reboot now?" "echo ' --> reboot' && reboot"
+y_n_promt "Do you want to reboot now?" "echo ' --> reboot'" && reboot
