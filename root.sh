@@ -80,7 +80,7 @@ timedatectl set-ntp true
 echo "Checking boot type"
 echo " --> ls /sys/firmware/efi/efivars 2> /dev/null > /dev/null && EFI=true && INITIAL=\"$INITIAL efibootmgr\" || EFI=false"
 ls /sys/firmware/efi/efivars 2> /dev/null > /dev/null && EFI=true && INITIAL="$INITIAL efibootmgr" || EFI=false
-if [ EFI==true ]; then
+if [[ "$EFI" == "true" ]]; then
 	echo "... UEFI detected"
 
 	echo "Download UEFI partitioning guide"
@@ -105,7 +105,7 @@ echo "Now create your prefered partitionin scheme."
 echo "After this step the installer asumes /mnt to be mountpoint for /"
 echo "Dont forget to swapon /dev/<swap_partition> if you configured one"
 echo "Type exit once your done partitioning and mounting"
-if [ EFI==true ]; then
+if [[ "$EFI" == "true" ]]; then
 	echo "You are working with an UEFI system"
 	echo "For uefi systems this installer expects /mnt/boot to be mountpoint for the uefi partition"
 else

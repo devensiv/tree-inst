@@ -137,7 +137,7 @@ curl -o /etc/default/grub https://raw.githubusercontent.com/devensiv/tree-inst/m
 echo " --> curl -o /etc/default/grub https://raw.githubusercontent.com/devensiv/tree-inst/main/grub" && \
 curl -o /etc/default/grub https://raw.githubusercontent.com/devensiv/tree-inst/main/grub
 
-if [ $EFI == true ]; then
+if [[ "$EFI" == "true" ]]; then
 	echo "installing grub for uefi boot"
 
 	# only one option for now ... omit question
@@ -173,7 +173,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 NETWORKD=$2
 
 
-if [ $NETWORKD == true ]; then
+if [[ "$NETWORKD" == "true" ]]; then
 	echo "Installing config for ethernet using systemd-networkd"
 	echo " --> echo ... > /etc/systemd/network/20-wired.network"
 	echo "[Match]
