@@ -17,6 +17,8 @@ You seem to be using an UEFI system and should use GPT partitioning scheme to wo
 .B fdisk type
 ,
 .B size
+,
+.B filesystem
 .P
 -------------------------------------
 .P
@@ -27,6 +29,8 @@ You seem to be using an UEFI system and should use GPT partitioning scheme to wo
 .B uefi
 ,
 ~512MB, more if you want to use more then one kernel (>1GB)
+,
+\fBmkfs.fat -F 32 -n boot /dev\fI/sda1
 .P
 .R [SWAP]
 ,
@@ -35,6 +39,8 @@ You seem to be using an UEFI system and should use GPT partitioning scheme to wo
 .B swap
 ,
 >512MB, If you are not sure just take half the size of the RAM installed
+,
+\fBmkswap -L swap /dev\fI/sda2
 .P
 .B /mnt
 ,
@@ -43,6 +49,8 @@ You seem to be using an UEFI system and should use GPT partitioning scheme to wo
 .B 23
 ,
 Remainder of the device
+,
+\fBmkfs.ext4 -L root /dev\fI/sda3
 .PP
 When mounting the partitions make sure to mount
 .B /mnt

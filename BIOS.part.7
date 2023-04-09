@@ -19,6 +19,8 @@ You seem to be using a BIOS system and should use MBR partitioning scheme to wor
 .B boot flag
 ,
 .B size
+,
+.B filesystem
 .P
 -------------------------------------
 .P
@@ -31,6 +33,8 @@ You seem to be using a BIOS system and should use MBR partitioning scheme to wor
 .B NO
 ,
 >512MB, If you are not sure just take half the size of the RAM installed
+,
+\fBmkswap -L swap /dev\fI/sda1
 .P
 .B /mnt
 ,
@@ -41,6 +45,8 @@ You seem to be using a BIOS system and should use MBR partitioning scheme to wor
 .B YES
 ,
 Remainder of the device
+,
+\fBmkfs.ext4 -L root /dev\fI/sda2
 .P
 .R N/A
 ,

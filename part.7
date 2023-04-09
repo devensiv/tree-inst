@@ -15,6 +15,8 @@ If you want to use GPT on a system that supports UEFI boot you may choose to par
 .B fdisk type
 ,
 .B size
+,
+.B filesystem
 .P
 -------------------------------------
 .P
@@ -25,6 +27,8 @@ If you want to use GPT on a system that supports UEFI boot you may choose to par
 .B uefi
 ,
 ~512MB, more if you want to use more then one kernel (>1GB)
+,
+\fBmkfs.fat -F 32 -n boot /dev\fI/sda1
 .P
 .R [SWAP]
 ,
@@ -33,6 +37,8 @@ If you want to use GPT on a system that supports UEFI boot you may choose to par
 .B swap
 ,
 >512MB, If you are not sure just take half the size of the RAM installed
+,
+\fBmkswap -L swap /dev\fI/sda2
 .P
 .B /mnt
 ,
@@ -41,6 +47,8 @@ If you want to use GPT on a system that supports UEFI boot you may choose to par
 .B 23
 ,
 Remainder of the device
+,
+\fBmkfs.ext4 -L root /dev\fI/sda3
 .PP
 When mounting the partitions make sure to mount
 .B /mnt
@@ -63,6 +71,8 @@ If you want to use MBR (your system has been detected to use BIOS) you may choos
 .B boot flag
 ,
 .B size
+,
+.B filesystem
 .P
 -------------------------------------
 .P
@@ -75,6 +85,8 @@ If you want to use MBR (your system has been detected to use BIOS) you may choos
 .B NO
 ,
 >512MB, If you are not sure just take half the size of the RAM installed
+,
+\fBmkswap -L swap /dev\fI/sda1
 .P
 .B /mnt
 ,
@@ -85,6 +97,8 @@ If you want to use MBR (your system has been detected to use BIOS) you may choos
 .B YES
 ,
 Remainder of the device
+,
+\fBmkfs.ext4 -L root /dev\fI/sda2
 .P
 .R N/A
 ,
