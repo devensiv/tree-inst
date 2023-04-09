@@ -72,10 +72,6 @@ function y_n_promt() {
 	return 1
 }
 
-echo "enable network time syncronization"
-echo " --> timedatectl set-ntp true"
-timedatectl set-ntp true
-
 zones=(
 	"Europe/Berlin"
 )
