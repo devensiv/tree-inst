@@ -113,7 +113,8 @@ else
 fi
 echo ""
 echo "You will be dropped into a shell please partition the drives and mount them accordingly"
-echo "To get a basic partitioning guide run `man -l ~/part.7`"
+echo "To get a basic partitioning guide run 'man -l ~/part.7'"
+echo "if you are using the tree-inst iso 'man part' will be sufficient"
 echo " --> bash"
 bash
 echo "Update pacman mirrors"
