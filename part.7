@@ -1,0 +1,89 @@
+.TH Partitioning 1
+.SH NAME
+tree-inst guide to partioning an arch linux system
+.SH DESCRIPTION
+This page describes how you may partition drives and
+mount those partitions for a function run of
+.B tree-inst
+.SH UEFI/GPT
+If you want to use GPT on a system that supports UEFI boot you may choose to partition your disk as follows:
+.P
+.B mount
+,
+.B partition
+,
+.B fdisk type
+,
+.B size
+.P
+-------------------------------------
+.P
+.B /mnt/boot
+,
+.BI /dev /sda1
+,
+.B uefi
+,
+~512MB, more if you want to use more then one kernel (>1GB)
+.P
+.R [SWAP]
+,
+.BI /dev /sda2
+,
+.B swap
+,
+>512MB, If you are not sure just take half the size of the RAM installed
+.P
+.B /mnt
+,
+.BI /dev /sda3
+,
+.B 23
+,
+Remainder of the device
+.PP
+When mounting the partitions make sure to mount
+.B /mnt
+before
+.B /mnt/boot
+and create the directory
+.B /mnt/boot
+before mounting
+.BI /dev /sda1
+to it
+.SH BIOS/MBR
+If you want to use MBR (your system has been detected to use BIOS) you may choose to partition your disk as follows:
+.P
+.B mount
+,
+.B partition
+,
+.B fdisk type
+,
+.B size
+.P
+-------------------------------------
+.P
+.R NONE
+,
+.BI /dev /sda1
+,
+.B 4
+,
+~512MB, more if you want to use more then one kernel (>1GB)
+.P
+.R [SWAP]
+,
+.BI /dev /sda2
+,
+.B swap
+,
+>512MB, If you are not sure just take half the size of the RAM installed
+.P
+.B /mnt
+,
+.BI /dev /sda3
+,
+.B 23
+,
+Remainder of the device

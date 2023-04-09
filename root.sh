@@ -103,6 +103,9 @@ if [ EFI==true ]; then
 else
 	echo "You are working with a BIOS system"
 fi
+echo ""
+echo "You will be dropped into a shell please partition the drives and mount them accordingly"
+echo "To get a basic partitioning guide run `man -l ~/part.7`"
 echo " --> bash"
 bash
 echo "Update pacman mirrors"
