@@ -16,17 +16,11 @@ You seem to be using a BIOS system and should use MBR partitioning scheme to wor
 ,
 .B fdisk type
 ,
+.B boot flag
+,
 .B size
 .P
 -------------------------------------
-.P
-.R NONE
-,
-.BI /dev /sda1
-,
-.B 4
-,
-1MB
 .P
 .R [SWAP]
 ,
@@ -34,12 +28,26 @@ You seem to be using a BIOS system and should use MBR partitioning scheme to wor
 ,
 .B swap
 ,
+.B NO
+,
 >512MB, If you are not sure just take half the size of the RAM installed
 .P
 .B /mnt
 ,
 .BI /dev /sda3
 ,
-.B 23
+.B linux
+,
+.B YES
 ,
 Remainder of the device
+.P
+.R N/A
+,
+.R unallocated
+,
+.B N/A
+,
+.B N/A
+,
+>16.5KiB
