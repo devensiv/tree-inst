@@ -82,8 +82,16 @@ echo " --> ls /sys/firmware/efi/efivars 2> /dev/null > /dev/null && EFI=true && 
 ls /sys/firmware/efi/efivars 2> /dev/null > /dev/null && EFI=true && INITIAL="$INITIAL efibootmgr" || EFI=false
 if [ EFI==true ]; then
 	echo "... UEFI detected"
+
+	echo "Download UEFI partitioning guide"
+	echo " --> curl -o ~/part.7 https://raw.githubusercontent.com/devensiv/tree-inst/main/UEFI.part.7"
+	curl -o ~/part.7 https://raw.githubusercontent.com/devensiv/tree-inst/main/UEFI.part.7
 else
 	echo "... BIOS detected"
+
+	echo "Download BIOS partitioning guide"
+	echo " --> curl -o ~/part.7 https://raw.githubusercontent.com/devensiv/tree-inst/main/BIOS.part.7"
+	curl -o ~/part.7 https://raw.githubusercontent.com/devensiv/tree-inst/main/BIOS.part.7
 fi
 
 echo "Update keyring"
