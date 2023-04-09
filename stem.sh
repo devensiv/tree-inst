@@ -193,12 +193,3 @@ else
 	echo " --> systemctl enable NetworkManager.service"
 	systemctl enable NetworkManager.service
 fi	
-
-echo "[¡!] TODO user + group setup"
-echo "[¡!] TODO user + group setup"
-echo "[¡!] TODO user + group setup"
-echo "[¡!] TODO user + group setup"
-echo "[¡!] TODO user + group setup"
-echo "[¡!] TODO user + group setup"
-echo "[¡!] TODO user + group setup"
-
